@@ -14,7 +14,11 @@ namespace Capstone.Animation
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         private int _animIDCrouch;
-        
+        private int _animIDSelectGun;
+        private int _animIDUnSelectGun;
+        private int _animIDShoot;
+        private int _animIDCrouchShoot;
+
 
         private void Start()
         {
@@ -32,11 +36,10 @@ namespace Capstone.Animation
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDCrouch = Animator.StringToHash("Crouch");
-        }
-
-        private void Update()
-        {
-            _hasAnimator = TryGetComponent(out _animator);
+            _animIDSelectGun = Animator.StringToHash("SelectGun");
+            _animIDUnSelectGun = Animator.StringToHash("UnSelectGun");
+            _animIDShoot = Animator.StringToHash("Shoot");
+            _animIDCrouchShoot = Animator.StringToHash("CrouchShoot");
         }
 
         public void SetGrounded(bool grounded)
@@ -47,11 +50,11 @@ namespace Capstone.Animation
             }
         }
 
-        public void MoveSpeed(float _animationBlend, float inputMagnitude)
+        public void MoveSpeed(float animationBlend, float inputMagnitude)
         {
             if (_hasAnimator)
             {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
+                _animator.SetFloat(_animIDSpeed, animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
@@ -86,6 +89,44 @@ namespace Capstone.Animation
             if (_hasAnimator)
             {
                 _animator.SetBool(_animIDCrouch, isPressButton);
+            }
+        }
+
+        public void SetLayer(int layerIndex, float weight)
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetLayerWeight(layerIndex, weight);
+            }
+        }
+
+        public void SelectGun()
+        {
+            _animator.SetTrigger(_animIDSelectGun);
+        }
+
+
+        public void UnSelectGun()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetTrigger(_animIDUnSelectGun);
+            }
+        }
+
+        public void ShootAnimation()
+        {
+            if (_hasAnimator)
+            {
+               _animator.SetTrigger(_animIDShoot);
+            }
+        }
+        
+        public void CrouchShootAnimation()
+        {
+            if (_hasAnimator)
+            {
+                _animator.SetTrigger(_animIDCrouchShoot);
             }
         }
     }

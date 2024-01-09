@@ -18,8 +18,8 @@ namespace Capstone
         [SerializeField] private Transform debugTransform;
         
         [SerializeField] private bool isAiming;
-
-        public bool IsAming
+      
+        public bool IsAiming
         {
             get => isAiming;
             set => isAiming = value;

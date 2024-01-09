@@ -91,6 +91,15 @@ namespace Capstone.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GunSelect"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a3014f4-b344-4b1e-8d7f-26396c1d455e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -335,6 +344,28 @@ namespace Capstone.Input
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6df043a1-6a8e-4bda-889a-87d14e4f35f6"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""GunSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcad7db4-5e30-4302-80b9-9a6c289a80d1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GunSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -388,6 +419,7 @@ namespace Capstone.Input
             m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
             m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+            m_Player_GunSelect = m_Player.FindAction("GunSelect", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -456,6 +488,7 @@ namespace Capstone.Input
         private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Aim;
         private readonly InputAction m_Player_Shoot;
+        private readonly InputAction m_Player_GunSelect;
         public struct PlayerActions
         {
             private @GameInput m_Wrapper;
@@ -467,6 +500,7 @@ namespace Capstone.Input
             public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @Aim => m_Wrapper.m_Player_Aim;
             public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+            public InputAction @GunSelect => m_Wrapper.m_Player_GunSelect;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -497,6 +531,9 @@ namespace Capstone.Input
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @GunSelect.started += instance.OnGunSelect;
+                @GunSelect.performed += instance.OnGunSelect;
+                @GunSelect.canceled += instance.OnGunSelect;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -522,6 +559,9 @@ namespace Capstone.Input
                 @Shoot.started -= instance.OnShoot;
                 @Shoot.performed -= instance.OnShoot;
                 @Shoot.canceled -= instance.OnShoot;
+                @GunSelect.started -= instance.OnGunSelect;
+                @GunSelect.performed -= instance.OnGunSelect;
+                @GunSelect.canceled -= instance.OnGunSelect;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -566,6 +606,7 @@ namespace Capstone.Input
             void OnCrouch(InputAction.CallbackContext context);
             void OnAim(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
+            void OnGunSelect(InputAction.CallbackContext context);
         }
     }
 }

@@ -9,6 +9,12 @@ namespace Capstone.Movement
         [Header("Player")] 
         [SerializeField] private float moveSpeed = 2.0f;
         [SerializeField] private float sprintSpeed = 5.335f;
+
+        public float MoveSpeed
+        {
+            get => moveSpeed;
+            set => moveSpeed = value;
+        }
         public Vector2 MovementInput { get; set; }
         public bool Sprint { get; set; }
         public bool analogMovement;
