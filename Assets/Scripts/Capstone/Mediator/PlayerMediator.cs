@@ -3,6 +3,7 @@ using System.Collections;
 using Capstone.Animation;
 using Capstone.Input;
 using Capstone.Movement;
+using Capstone.Shoot;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
